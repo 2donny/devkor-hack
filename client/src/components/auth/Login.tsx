@@ -11,11 +11,11 @@ const APIKEY = '00e1c763b85e22f5a25c3c42845c6794';
 
 function Login({ history }: Props) {
   const loginSuccess = (props: any) => {
-    console.log(props);
+    const { profile, response } = props;
     history.push('/me', {
-      male: props.profile?.kakao_account.male,
-      nickname: props.profile.profile?.nickname,
-      profile_image_url: props.profile.profile?.profile_image_url,
+      gender: profile?.kakao_account.gender,
+      nickname: profile?.kakao_account?.profile?.nickname,
+      profile_image_url: profile?.kakao_account?.profile?.profile_image_url,
     });
   };
 
@@ -60,17 +60,18 @@ const Container = styled.div`
   padding: 0 2rem;
 `;
 
-const Row = styled.div`
+export const Row = styled.div`
   display: flex;
 `;
-const SImg = styled.img`
+
+export const SImg = styled.img`
   object-fit: conver;
   width: 50px;
   height: 50px;
 `;
 
-const TitleBox = styled.div`
-  margin: 3rem 0;
+export const TitleBox = styled.div`
+  margin: 2rem 0;
   font-weight: 700;
   h1 {
     color: #929da9;
@@ -97,17 +98,6 @@ const LoginBox = styled.div`
     font-weight: 600;
     margin: 0;
   }
-`;
-
-const SImage = styled.img`
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  margin: 5px 0;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
 `;
 
 export default withRouter(Login);

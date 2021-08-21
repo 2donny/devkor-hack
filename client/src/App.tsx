@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Login from './components/auth/Login';
 import { GlobalStyles } from './styles/styles';
 import Profile from './components/profile/Profile';
+import Call from './components/call/Call';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useLogin();
@@ -18,6 +19,10 @@ function App() {
 
         <Route path="/me">
           <Profile />
+        </Route>
+
+        <Route path="/call">
+          <Call />
         </Route>
       </Switch>
     </Layout>
