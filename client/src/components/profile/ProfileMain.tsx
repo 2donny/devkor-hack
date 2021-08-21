@@ -17,7 +17,6 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
     const __size = files[0]?.size;
 
     if (__size > 10000000) {
-      // 10MB 이상이면 용량 제한
       return alert(
         '사진 최대 용량을 초과했습니다. 사진 용량은 최대 10MB입니다. ',
       );
@@ -32,6 +31,7 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
     dispatch({ type: 'setProfileFormData', payload: __file });
   };
 
+  console.log(state.name, state.gender);
   return (
     <Container>
       <STitle>{title}</STitle>
@@ -53,13 +53,13 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
   );
 }
 
-const Container = styled.div``;
+export const Container = styled.div``;
 
-const STitle = styled.h1`
+export const STitle = styled.h1`
   font-weight: 700;
   font-size: 28px;
   line-height: 32px;
-  margin: 1.5rem 0;
+  margin: 2.5rem 0;
 `;
 
 const ProfileImageWrapper = styled.label`

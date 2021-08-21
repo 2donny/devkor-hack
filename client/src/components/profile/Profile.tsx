@@ -1,12 +1,12 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
 import ProfileLayout from './ProfileLayout';
 import ProfileMain from './ProfileMain';
 import ProfileDetail from './ProfileDetail';
 import ProfileOption from './ProfileOption';
 import { ProfileAction, ProfileState } from './types';
-
-interface Props {}
+import { useHistory, useLocation } from 'react-router-dom';
+import { ProfileLocationState } from '../auth/types';
 
 function reducer(state: ProfileState, action: ProfileAction): ProfileState {
   switch (action.type) {
@@ -80,36 +80,43 @@ function reducer(state: ProfileState, action: ProfileAction): ProfileState {
   }
 }
 
-const initialState = {
-  profileFormData: undefined,
-  profileImg: '',
-  name: '',
-  univ: '',
-  age: '',
-  mbti: '',
-  location: '',
-  gender: '',
-  intro: '',
-  job: '',
-  bucketList: '',
-  talkingSubject: '',
-  bio: '',
-};
-
-export default function ProfileContainer(props: Props) {
+export default function Profile() {
+  const location = useLocation<ProfileLocationState>();
+  const history = useHistory();
   const [step, setStep] = useState(0);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, {
+    profileFormData: undefined,
+    profileImg: '',
+    name: '',
+    univ: '',
+    age: '',
+    mbti: '',
+    location: '',
+    gender: '',
+    intro: '',
+    job: '',
+    bucketList: '',
+    talkingSubject: '',
+    bio: '',
+  });
+
+  useEffect(() => {
+    const { gender, nickname, profile_image_url } = location.state;
+    dispatch({ type: 'setGender', payload: gender || '' });
+    dispatch({ type: 'setName', payload: nickname || '' });
+    dispatch({ type: 'setProfileImg', payload: profile_image_url || '' });
+  }, []);
 
   const handleNext = () => {
     if (step + 1 === components.length) {
-      // http request, redirect
-      console.log('axios');
+      console.log('axios'); // http request, redirect
+      return;
     }
     setStep((step: number) => step + 1);
   };
 
   const prevStep = () => {
-    if (step === 0) return;
+    if (step === 0) history.push('/');
     setStep((step: number) => step - 1);
   };
 

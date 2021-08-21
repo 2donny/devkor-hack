@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ArrowBackOutline } from 'react-ionicons';
 import { commonStyles } from '../../styles/styles';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 interface Props {
   children: React.ReactNode;
@@ -22,6 +23,9 @@ export default function ProfileLayout({ children, onNext, onPrev }: Props) {
             cursor: 'pointer',
           }}
         />
+        <LoaderWrapper>
+          <ClipLoader color={commonStyles.accent} size={30} />
+        </LoaderWrapper>
         <ConfirmBtn onClick={onNext}>확인</ConfirmBtn>
       </SNav>
       <main>{children}</main>
@@ -30,13 +34,21 @@ export default function ProfileLayout({ children, onNext, onPrev }: Props) {
 }
 
 const Container = styled.div`
+  position: relative;
   min-height: 100vh;
   padding: 1.5rem;
 `;
 
-const SNav = styled.nav`
+export const SNav = styled.nav`
   display: flex;
   justify-content: space-between;
+`;
+
+const LoaderWrapper = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
 `;
 
 const ConfirmBtn = styled.button`
