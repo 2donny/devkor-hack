@@ -8,9 +8,7 @@ import "./Call.css";
 
 const Call = () => {
   const [waiting, setWaiting] = useState(false);
-  // const [globalStream, setGlobalStream] = useState("");
-  // const [globalStreamId, setGlobalStreamID] = useState("");
-  // const [globalClient, setGlobalClient] = useState("");
+  const [finish, setFinish] = useState(true);
 
   // Remove the video stream from the container.
   function removeVideoStream(elementId) {
@@ -65,7 +63,7 @@ const Call = () => {
         // Create a local stream
         let localStream = AgoraRTC.createStream({
           audio: true,
-          video: true,
+          video: false,
         });
         // Initialize the local stream
         localStream.init(() => {
@@ -101,6 +99,7 @@ const Call = () => {
       let streamId = String(stream.getId());
       stream.close();
       removeVideoStream(streamId);
+      setWaiting(true);
     });
     // Remove the corresponding view when a remote user leaves the channel.
     client.on("peer-leave", function (evt) {
@@ -108,16 +107,13 @@ const Call = () => {
       let streamId = String(stream.getId());
       stream.close();
       removeVideoStream(streamId);
+      setWaiting(true);
     });
   }, []);
 
-  //Swift
-  // const leaveChannel = () => {
-  //   agoraKit.leaveChannel(nil);
-  // };
-
-  const onExit = () => {
-    client.leave();
+  const onExit = async () => {
+    await client.leave();
+    setWaiting(true);
   };
 
   return (
@@ -130,29 +126,62 @@ const Call = () => {
             <AiOutlineArrowLeft size="15" color="white" />
           </button> */}
         <div className="callName">양오오니</div>
-        <button className="callExit" onClick={onExit}>
-          <IoCall className="callExitIcon" color="white" size="22" />
-        </button>
+
         <div className="callJob">UX UI 디자이너</div>
-        <div className="callTime">7:00</div>
+        {finish ? (
+          <button className="callNew">다른 친구와 통화하기</button>
+        ) : (
+          <div className="callTime">7:00</div>
+        )}
+        {finish ? (
+          <button className="callFriend">친구신청</button>
+        ) : (
+          <button className="callExit" onClick={onExit}>
+            <IoCall className="callExitIcon" color="white" size="26" />
+          </button>
+        )}
+
         <div className="callFooter">
-          <div className="callContent">
-            재밌는 일 뭐 없나 코시국에 새로운 사람들 다양한 분야 의 사람들과
-            TALK 을 해보고싶어서 가입했습니다. 지금 스타트업을 다니고 있어서
-            관련 업종에 계신 분들과 재밌는 이야기 나눠보고 싶습니다 ㅎㅎ
+          <div className="callFooterContainer">
+            <div className="callIntro">
+              재밌는 일 뭐 없나 코시국에 새로운 사람들 다양한 분야 의 사람들과
+              TALK 을 해보고싶어서 가입했습니다. 지금 스타트업을 다니고 있어서
+              관련 업종에 계신 분들과 재밌는 이야기 나눠보고 싶습니다 ㅎㅎ
+            </div>
+            <div className="callTitle">목표/버킷리스트</div>
+            <div className="callContent">
+              1. 세계일주하고 맛있는 세계음식들 음미해보기!!!!!
+              <br />
+              2. 하루에 신문 1개씩 읽고 , 일기 하루에 한개씩 써서 책으로
+              만들어서 자서전 팔기
+              <br />
+              3. 영어공부/학원 다니기
+              <br /> 4. 학점 A쁠 받기
+            </div>
+            <div className="callTitle">Detail</div>
+            <div className="callDetailTitles">
+              <div>성별:</div>
+              <div>나이:</div>
+              <div>학교</div>
+              <div>MBTI:</div>
+              <div>위치:</div>
+              <div>활동이력:</div>
+            </div>
+            <div className="callDetailContents">
+              <div>여자</div>
+              <div>20대 초반</div>
+              <div>고려대학교</div>
+              <div>ENTP 뜨거운 논쟁의 변론가</div>
+              <div>서울 성동구</div>
+              <div>멋쟁이 사자처럼</div>
+            </div>
+            <div className="callTitle">관심사</div>
+            <div className="callContent" id="last">
+              #맛집
+            </div>
           </div>
-          <div className="callGoalTitle">목표/버킷리스트</div>
-          <div className="callGoalContent">목표는 집가기</div>
-          <div className="callDetailTitle">Detail</div>
-          <div className="callDetailContent">내 MBTI 뭐겡</div>
-          <div className="callResumeTitle">활동이력:</div>
-          <div className="callResumeContent">멋쟁이 사자처럼</div>
-          <div className="callInterestTitle">관심사</div>
-          <div className="callInterestContent">#맛집</div>
         </div>
-        <h4>Local video</h4>
         <div id="me"></div>
-        <h4>Remote video</h4>
         <div id="remote-container"></div>
       </div>
     </div>
