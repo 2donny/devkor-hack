@@ -4,30 +4,17 @@ import { ProfileAction, ProfileState } from './types';
 
 interface Props {
   title: string;
+  state: ProfileState;
+  dispatch: React.Dispatch<ProfileAction>;
 }
 
-function reducer(state: ProfileState, action: ProfileAction) {
-  switch (action.type) {
-    case 'setName':
-      return { 
-          ...state,
-          name
-      };
-    case 'setUniv':
-      return { count: state.count - 1 };
-
-    default:
-      throw new Error();
-  }
-}
-
-export default function ProfileMain({ title }: Props) {
+export default function ProfileMain({ title, state, dispatch }: Props) {
   const handleFileOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return null;
 
     const files = e.target.files;
     const __file = files[0];
-    const __size = files[0].size;
+    const __size = files[0]?.size;
 
     if (__size > 10000000) {
       // 10MB 이상이면 용량 제한
@@ -39,17 +26,17 @@ export default function ProfileMain({ title }: Props) {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(__file);
     fileReader.onload = (e) => {
-      setProfileImgSrc(e.target!.result as string);
+      console.log(e.target?.result);
+      dispatch({ type: 'setProfileImg', payload: e.target!.result as string });
     };
-
-    setProfileFile(__file);
+    dispatch({ type: 'setProfileFormData', payload: __file });
   };
 
   return (
     <Container>
       <STitle>{title}</STitle>
       <ProfileImageWrapper htmlFor="input-file">
-        <img src="/unknown.png" />
+        <img src={state.profileImg ? state.profileImg : '/unknown.png'} />
         <p className="green">프로필사진 업로드하기</p>
         <p className="gray">
           자신의 개성을 나타낼 수 있는 사진으로 업로드해주세요 :D 안심하세요!
@@ -100,6 +87,8 @@ const ProfileImageWrapper = styled.label`
     width: 100px;
     height: 100px;
     margin: 20px 0 15px;
+    object-fit: cover;
+    border-radius: 50%;
     cursor: pointer;
   }
 `;

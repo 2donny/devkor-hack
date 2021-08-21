@@ -1,26 +1,30 @@
 export type ProfileAction =
-  | { type: 'setName' }
-  | { type: 'setUniv'; results: HNResponse }
-  | { type: 'setAge'; error: string }
-  | { type: 'setMbti'; error: string }
-  | { type: 'setLocation'; error: string }
-  | { type: 'setGender'; error: string }
-  | { type: 'setIntro'; error: string }
-  | { type: 'setJob'; error: string }
-  | { type: 'setBucketList'; error: string }
-  | { type: 'setTalkingSubject'; error: string }
-  | { type: 'setBio'; error: string };
+  | { type: 'setProfileFormData'; payload: File }
+  | { type: 'setProfileImg'; payload: string }
+  | { type: 'setName'; payload: string }
+  | { type: 'setUniv'; payload: string }
+  | { type: 'setAge'; payload: string }
+  | { type: 'setMbti'; payload: string }
+  | { type: 'setLocation'; payload: string }
+  | { type: 'setGender'; payload: string }
+  | { type: 'setIntro'; payload: string }
+  | { type: 'setJob'; payload: string }
+  | { type: 'setBucketList'; payload: string }
+  | { type: 'setTalkingSubject'; payload: string }
+  | { type: 'setBio'; payload: string };
 
-export type ProfileState = {
-  name: '';
-  univ: '';
-  age: '';
-  mbti: '';
-  location: '';
-  gender: '';
-  intro: '';
-  job: '';
-  bucketList: '';
-  talkingSubject: '';
-  bio: '';
-};
+export interface ProfileState {
+  profileFormData?: File;
+  profileImg: string;
+  name: string;
+  univ: string;
+  age: string;
+  mbti: string;
+  location: string;
+  gender: string;
+  intro: string;
+  job: string;
+  bucketList: string;
+  talkingSubject: string;
+  bio: string;
+}
