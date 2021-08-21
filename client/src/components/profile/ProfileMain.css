@@ -1,0 +1,321 @@
+.title {
+
+    position: absolute;
+    left: 5.5%;
+    right: 48.89%;
+    top: 5.27%;
+    bottom: 0%;
+
+    width: 180px;
+    height: 32px;
+
+    /* 스포카/bold/28 */
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 32px;
+    /* identical to box height, or 114% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.005em;
+
+    color: #222222;
+
+}
+
+.body {
+    position: absolute;
+    width: 400px;
+    height: 1157px;
+    left: 0px;
+    top: 0px;
+
+    background: #FFFFFF;
+}
+
+.name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+
+    position: absolute;
+    left: 5.87%;
+    right: 5.33%;
+    top: 30%;
+    bottom: 61.54%;
+
+    width: 315px;
+    height: 40px;
+
+
+    background: #FFFFFF;
+
+    border: 1px solid #E1E3E6;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+}
+
+.univ {
+    position: absolute;
+    width: 243px;
+    height: 40px;
+    left: 0px;
+    top: 0px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+
+    position: absolute;
+    left: 5.87%;
+    right: 29.33%;
+    top: 34.5%;
+    bottom: 57.04%;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E1E3E6;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.three {
+
+    position: absolute;
+    width: 320px;
+    height: 164px;
+    left: 22px;
+    top: 450px;
+
+}
+
+.age {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+
+    width: 243px;
+    height: 40px;
+
+    left: 5.87%;
+    right: 29.33%;
+
+    top: 38.99%;
+    bottom: 52.55%;
+
+    background: #FFFFFF;
+
+
+    border: 1px solid #E1E3E6;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.agetext {
+    position: absolute;
+    left: 2.2%;
+    right: 10.13%;
+    top: 25%;
+    bottom: 50.65%;
+    width: 330px;
+    height: 14px;
+
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #A7B0C0;
+
+}
+
+.mbti {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 12px;
+
+    left: 5.87%;
+    right: 29.33%;
+    top: 50.22%;
+    bottom: 46.33%;
+
+    width: 243px;
+    height: 40px;
+
+    background: #FFFFFF;
+
+
+    border: 1px solid #E1E3E6;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 12px;
+
+    left: 5.87%;
+    right: 29.33%;
+    top: 54.71%;
+    bottom: 41.83%;
+
+    width: 243px;
+    height: 40px;
+
+    background: #FFFFFF;
+
+
+    border: 1px solid #E1E3E6;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.gender {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    margin-top: 0px;
+
+    position: absolute;
+    left: 5.87%;
+    right: 6.4%;
+    bottom: 40.5%;
+
+}
+
+.gendertext {
+    position: static;
+    width: 329px;
+    height: 24px;
+    left: calc(50% - 329px/2);
+    top: 0px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    display: flex;
+    align-items: center;
+
+    /* Dark */
+
+    color: #404D61;
+
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    margin: 16px 0px;
+}
+
+.btn {
+    position: absolute;
+    width: 299px;
+    height: 57px;
+    left: 38px;
+    top: 900px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 22px;
+
+    position: absolute;
+    height: 58px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    bottom: 0px;
+
+    background: #25D482;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.waitingModalHeader {
+    height: 25px;
+    position: absolute;
+    left: 5.25%;
+    right: 48.58%;
+    top: 3.87%;
+    bottom: 22.8%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.texttext {
+    position: absolute;
+    left: 5.87%;
+    right: 6.4%;
+    top: 56.33%;
+    bottom: 30.6%;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    /* identical to box height, or 150% */
+
+    display: flex;
+    align-items: center;
+
+    /* Dark */
+
+    color: #404D61;
+
+}
+
+.text {
+    position: absolute;
+    width: 340px;
+    height: 105px;
+    left: 22px;
+    top: 746px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+
+    background: #EAECEE;
+    border-radius: 5px;
+
+    color: #929DA9;
+
+}

@@ -24,7 +24,7 @@ export default function ProfileLayout({ children, onNext, onPrev }: Props) {
           }}
         />
         <LoaderWrapper>
-          <ClipLoader color={commonStyles.accent} size={30} />
+          <ClipLoader color={commonStyles.accent} size={30} loading={false} />
         </LoaderWrapper>
         <ConfirmBtn onClick={onNext}>확인</ConfirmBtn>
       </SNav>

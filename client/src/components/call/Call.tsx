@@ -5,6 +5,8 @@ import { commonStyles } from '../../styles/styles';
 import Modal from 'react-modal';
 import { ArrowBackOutline } from 'react-ionicons';
 import { SNav } from '../profile/ProfileLayout';
+import { CheckmarkCircleOutline } from 'react-ionicons';
+import CheckBoxRow from './CheckBoxRow';
 
 const customStyles = {
   content: {
@@ -22,11 +24,14 @@ const customStyles = {
   },
 };
 
+const filteringOptions = ['여성', '남자', '둘다'];
+
 export default function Call() {
   const [modalState, setModalState] = useState({
     isOpen: false,
     type: '',
   });
+  const [filteredGender, setFilteredGender] = useState('여성');
 
   const closeModal = () => {
     setModalState({
@@ -90,13 +95,26 @@ export default function Call() {
                   cursor: 'pointer',
                 }}
               />
-              <span style={{ cursor: 'pointer', color: commonStyles.accent }}>
+              <span
+                style={{ cursor: 'pointer', color: commonStyles.accent }}
+                onClick={closeModal}
+              >
                 확인
               </span>
             </SNav>
             <ModalWrapper>
               <h3>상대방의 성별을 선택해주세요</h3>
               <p>성별을 적용하는 경우 통화연결이 지연될 수 있어요!</p>
+              {filteringOptions.map((value, index) => (
+                <CheckBoxRow
+                  key={index}
+                  label={value}
+                  checked={filteredGender === value}
+                  onClick={(value) => {
+                    setFilteredGender(value);
+                  }}
+                />
+              ))}
             </ModalWrapper>
           </>
         ) : (
