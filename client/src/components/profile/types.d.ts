@@ -1,4 +1,5 @@
 export type ProfileAction =
+  | { type: 'setUserId'; payload: number }
   | { type: 'setProfileFormData'; payload: File }
   | { type: 'setProfileImg'; payload: string }
   | { type: 'setName'; payload: string }
@@ -14,6 +15,7 @@ export type ProfileAction =
   | { type: 'setBio'; payload: string };
 
 export interface ProfileState {
+  userId?: number;
   profileFormData?: File;
   profileImg: string;
   name: string;
@@ -27,4 +29,12 @@ export interface ProfileState {
   bucketList: string;
   talkingSubject: string;
   bio: string;
+}
+
+export interface JoinResponse extends CoreOutput {}
+export interface LoginResponse extends CoreOutput {}
+
+interface CoreOutput {
+  ok: boolean;
+  error?: string;
 }

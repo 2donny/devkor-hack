@@ -4,12 +4,19 @@ import ProfileLayout from './ProfileLayout';
 import ProfileMain from './ProfileMain';
 import ProfileDetail from './ProfileDetail';
 import ProfileOption from './ProfileOption';
-import { ProfileAction, ProfileState } from './types';
+import { LoginResponse, ProfileAction, ProfileState } from './types';
 import { useHistory, useLocation } from 'react-router-dom';
 import { ProfileLocationState } from '../auth/types';
+import axios from 'axios';
+import { JoinResponse } from './types.d';
 
 function reducer(state: ProfileState, action: ProfileAction): ProfileState {
   switch (action.type) {
+    case 'setUserId':
+      return {
+        ...state,
+        userId: action.payload,
+      };
     case 'setProfileFormData':
       return {
         ...state,
@@ -86,6 +93,7 @@ export default function Profile() {
   const [step, setStep] = useState(0);
   const [isLoading, setisLoading] = useState(false);
   const [state, dispatch] = useReducer(reducer, {
+    userId: undefined,
     profileFormData: undefined,
     profileImg: '',
     name: '',
@@ -102,7 +110,9 @@ export default function Profile() {
   });
 
   useEffect(() => {
-    const { gender, nickname, profile_image_url } = location.state;
+    const { userId, gender, nickname, profile_image_url } = location.state;
+    if (!userId) window.location.href = '/';
+    dispatch({ type: 'setUserId', payload: userId });
     dispatch({ type: 'setGender', payload: gender || '' });
     dispatch({ type: 'setName', payload: nickname || '' });
     dispatch({ type: 'setProfileImg', payload: profile_image_url || '' });
@@ -112,13 +122,52 @@ export default function Profile() {
     if (step + 1 === components.length) {
       console.log('axios'); // http request, redirect
       setisLoading(true);
-      setTimeout(() => {
-        setisLoading(false);
-        history.push('/call');
-      }, 5000);
-      return;
+      const {
+        userId,
+        age,
+        bio,
+        bucketList,
+        gender,
+        intro,
+        job,
+        location,
+        mbti,
+        name,
+        profileImg,
+        talkingSubject,
+        univ,
+      } = state;
+
+      axios
+        .post<JoinResponse>('http://localhost:80/user/join', {
+          userId,
+          age,
+          bio,
+          bucketList,
+          gender,
+          intro,
+          job,
+          location,
+          mbti,
+          name,
+          profileImg,
+          talkingSubject,
+          univ,
+        })
+        .then((res) => {
+          console.log(res.data);
+          setisLoading(false);
+          if (res.data.ok) {
+            history.push('/call');
+          } else return alert(res.data.error);
+        })
+        .catch((err) => {
+          console.log(err);
+          return alert(err);
+        });
+    } else {
+      setStep((step: number) => step + 1);
     }
-    setStep((step: number) => step + 1);
   };
 
   const prevStep = () => {
@@ -127,7 +176,12 @@ export default function Profile() {
   };
 
   const components = [
-    <ProfileMain title="프로필 만들기" state={state} dispatch={dispatch} />,
+    <ProfileMain
+      onNext={handleNext}
+      title="프로필 만들기"
+      state={state}
+      dispatch={dispatch}
+    />,
     <ProfileDetail
       title="마지막! 어떤 사람인가요?"
       state={state}

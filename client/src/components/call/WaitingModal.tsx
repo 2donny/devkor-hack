@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { IoCall } from 'react-icons/io5';
 import './WaitingModal.css';
+import { useHistory } from 'react-router-dom';
 
 const modalBackground = {
   visible: { opacity: 1 },
@@ -15,6 +16,8 @@ const style = {
 };
 
 const WaitingModal = () => {
+  const history = useHistory();
+
   return (
     <AnimatePresence exitBeforeEnter>
       <motion.div
@@ -24,7 +27,10 @@ const WaitingModal = () => {
         animate="visible"
       >
         <div className="waitingModalContainer">
-          <button className="waitingModalHeader">
+          <button
+            className="waitingModalHeader"
+            onClick={() => (window.location.href = '/call')}
+          >
             <AiOutlineArrowLeft size="15" color="black" />
           </button>
           <div className="waitingModalBody">

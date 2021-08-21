@@ -6,6 +6,7 @@ import { GlobalStyles } from './styles/styles';
 import Profile from './components/profile/Profile';
 import Call from './components/call/Call';
 import CallWaitingRoom from './components/call/CallWatingRoom';
+import KakaoRedirect from './components/auth/KakaoRedirect';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useLogin();
@@ -20,6 +21,10 @@ function App() {
 
         <Route path="/me">
           <Profile />
+        </Route>
+
+        <Route path="/auth/kakao">
+          <KakaoRedirect />
         </Route>
 
         <Route path="/call" exact>

@@ -2,14 +2,16 @@ import { MouseEvent } from 'react';
 import styled from 'styled-components';
 import { ProfileAction, ProfileState } from './types';
 import './ProfileMain.css';
+import { PageIndicator } from './ProfileOption';
 
 interface Props {
   title: string;
   state: ProfileState;
   dispatch: React.Dispatch<ProfileAction>;
+  onNext: () => void;
 }
 
-export default function ProfileMain({ title, state, dispatch }: Props) {
+export default function ProfileMain({ title, state, dispatch, onNext }: Props) {
   const handleFileOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return null;
 
@@ -34,9 +36,9 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    onNext();
   };
 
-  console.log(state.name, state.gender);
   return (
     <Container>
       <STitle>{title}</STitle>
@@ -60,10 +62,12 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
         <input
           className="name"
           type="text"
+          required
           placeholder="이름을 적어주세요."
           value={state.name}
-          onChange={() => dispatch({ type: 'setName', payload: state.name })}
-          required
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            dispatch({ type: 'setName', payload: e.target.value })
+          }
         />
         <br />
 
@@ -71,7 +75,9 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
           className="univ"
           name="univ"
           value={state.univ}
-          onChange={() => dispatch({ type: 'setUniv', payload: state.univ })}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            dispatch({ type: 'setUniv', payload: e.target.value })
+          }
           required
         >
           <option>학교를 선택해주세요.</option>
@@ -84,9 +90,11 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
           <input
             type="text"
             className="age"
-            // value= {age}
             value={state.age}
-            onChange={() => dispatch({ type: 'setAge', payload: state.age })}
+            placeholder="나이를 입력해주세요"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              dispatch({ type: 'setAge', payload: e.target.value })
+            }
             required
           />
           <br />
@@ -99,7 +107,9 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
             className="mbti"
             name="mbti"
             value={state.mbti}
-            onChange={() => dispatch({ type: 'setMbti', payload: state.mbti })}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              dispatch({ type: 'setMbti', payload: e.target.value })
+            }
             required
           >
             <option value="">MBTI를 선택해주세요.</option>
@@ -125,8 +135,8 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
             className="area"
             name="area"
             value={state.location}
-            onChange={() =>
-              dispatch({ type: 'setLocation', payload: state.location })
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              dispatch({ type: 'setLocation', payload: e.target.value })
             }
             required
           >
@@ -160,7 +170,7 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
               <input
                 type="radio"
                 name="gender"
-                value={state.gender}
+                checked={state.gender === 'male'}
                 onChange={() =>
                   dispatch({ type: 'setGender', payload: 'male' })
                 }
@@ -170,7 +180,7 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
               <input
                 type="radio"
                 name="gender"
-                value={state.gender}
+                checked={state.gender === 'female'}
                 onChange={() =>
                   dispatch({ type: 'setGender', payload: 'female' })
                 }
@@ -183,10 +193,11 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
         <div className="texttext">개성있는 자기소개!</div>
         <textarea
           className="text"
-          // value= {age}
-          placeholder="tip. 어떤 친구와 대화하고 싶은지 적어두면 더 좋아요! &#10;예시) 미대에 다니는 다양한 삶을 살고싶어하는 미개봉화석^^&#10;요즘 스타트업에 관심이 생겨서 관련하신 분들과 이야기하면 좋을 것 같아용 ㅎㅎ"
           value={state.intro}
-          onChange={() => dispatch({ type: 'setIntro', payload: state.intro })}
+          placeholder="tip. 어떤 친구와 대화하고 싶은지 적어두면 더 좋아요! &#10;예시) 미대에 다니는 다양한 삶을 살고싶어하는 미개봉화석^^&#10;요즘 스타트업에 관심이 생겨서 관련하신 분들과 이야기하면 좋을 것 같아용 ㅎㅎ"
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+            dispatch({ type: 'setIntro', payload: e.target.value })
+          }
           required
         />
         <br />
@@ -195,6 +206,7 @@ export default function ProfileMain({ title, state, dispatch }: Props) {
           확인
         </button>
       </form>
+      <PageIndicator>1/2페이지</PageIndicator>
     </Container>
   );
 }

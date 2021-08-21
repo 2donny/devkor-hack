@@ -11,6 +11,11 @@ const client = AgoraRTC.createClient({
   codec: 'vp8',
 });
 
+const localStream = AgoraRTC.createStream({
+  audio: true,
+  video: false,
+});
+
 const CallWaitingRoom = () => {
   const [waiting, setWaiting] = useState(true);
   const [finish, setFinish] = useState(false);
@@ -69,12 +74,6 @@ const CallWaitingRoom = () => {
       null,
       undefined,
       (uid: number) => {
-        // Create a local stream
-        let localStream = AgoraRTC.createStream({
-          audio: true,
-          video: false,
-        });
-        // Initialize the local stream
         localStream.init(() => {
           // Play the local stream
           localStream.play('me');
@@ -110,18 +109,12 @@ const CallWaitingRoom = () => {
       removeVideoStream(streamId);
       setWaiting(true);
     });
-    // Remove the corresponding view when a remote user leaves the channel.
-    client.on('peer-leave', function (evt) {
-      //   let stream = evt.stream;
-      //   let streamId = String(stream.getId());
-      //   stream.close();
-      //   removeVideoStream(streamId);
-      //   setWaiting(true);
-    });
+    
   }, []);
 
   const onExit = async () => {
     await client.leave();
+    client.unpublish(localStream);
     setWaiting(true);
   };
 

@@ -57,7 +57,7 @@ const SSInput = styled(SInput)`
   padding-left: 0px;
 `;
 
-const PageIndicator = styled.p`
+export const PageIndicator = styled.p`
   color: #a7b0c0;
   text-align: right;
   font-size: 14px;

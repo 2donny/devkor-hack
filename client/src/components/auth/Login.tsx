@@ -11,8 +11,11 @@ const APIKEY = '00e1c763b85e22f5a25c3c42845c6794';
 
 function Login({ history }: Props) {
   const loginSuccess = (props: any) => {
+    console.log(props);
     const { profile, response } = props;
-    history.push('/me', {
+    console.log(props);
+    history.push('/auth/kakao', {
+      userId: profile?.id,
       gender: profile?.kakao_account.gender,
       nickname: profile?.kakao_account?.profile?.nickname,
       profile_image_url: profile?.kakao_account?.profile?.profile_image_url,

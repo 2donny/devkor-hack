@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Container, STitle } from './ProfileMain';
+import { PageIndicator } from './ProfileOption';
 import { ProfileState, ProfileAction } from './types';
 
 interface Props {
@@ -38,6 +39,7 @@ export default function ProfileDetail({ title, state, dispatch }: Props) {
           }
         />
       </Box>
+      <PageIndicator>1/2페이지</PageIndicator>
     </Container>
   );
 }
