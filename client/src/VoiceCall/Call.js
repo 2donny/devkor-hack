@@ -5,12 +5,31 @@ import { useEffect, useState } from "react";
 import { IoCall } from "react-icons/io5";
 import WaitingModal from "./WaitingModal";
 import "./Call.css";
+import styled from "styled-components";
 
 const Call = () => {
   const [waiting, setWaiting] = useState(false);
+  const [time,setTime] = useState(0);
   // const [globalStream, setGlobalStream] = useState("");
   // const [globalStreamId, setGlobalStreamID] = useState("");
   // const [globalClient, setGlobalClient] = useState("");
+
+
+  //이부분이야 이든아아아아아아아아아 1
+  function removeBlur() {
+    setTime(time+1)
+    styled.callImage`
+      filter: blur((1.5-0.125*time)rem);
+      width: 400px;
+      height: 320px;
+      position: absolute;
+      left: 1.5rem;
+      right: 0%;
+      top: 1%;
+      bottom: 63.45%;
+      object-fit: cover;
+    `
+  }
 
   // Remove the video stream from the container.
   function removeVideoStream(elementId) {
@@ -109,15 +128,20 @@ const Call = () => {
       stream.close();
       removeVideoStream(streamId);
     });
-  }, []);
+  }
+  , []);
 
   //Swift
   // const leaveChannel = () => {
   //   agoraKit.leaveChannel(nil);
   // };
 
+  //이부분이야 이든아아아아아앙아아 2
+  var interval = setInterval(removeBlur, 5000);
+
   const onExit = () => {
     client.leave();
+    clearInterval(interval);
   };
 
   return (

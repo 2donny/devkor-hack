@@ -47,6 +47,7 @@
 
 .callImage {
   /* blur */
+  filter:blur(1.5rem);
   width: 400px;
   height: 320px;
   position: absolute;
