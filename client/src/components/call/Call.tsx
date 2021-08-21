@@ -5,8 +5,8 @@ import { commonStyles } from '../../styles/styles';
 import Modal from 'react-modal';
 import { ArrowBackOutline } from 'react-ionicons';
 import { SNav } from '../profile/ProfileLayout';
-import { CheckmarkCircleOutline } from 'react-ionicons';
 import CheckBoxRow from './CheckBoxRow';
+import { useHistory } from 'react-router-dom';
 
 const customStyles = {
   content: {
@@ -27,6 +27,7 @@ const customStyles = {
 const filteringOptions = ['여성', '남자', '둘다'];
 
 export default function Call() {
+  const history = useHistory();
   const [modalState, setModalState] = useState({
     isOpen: false,
     type: '',
@@ -65,7 +66,15 @@ export default function Call() {
           <UpperBtn onClick={() => openModal('filtering')}>
             필터링 설정하기
           </UpperBtn>
-          <BelowBtn>친구들과 통화하기</BelowBtn>
+          <BelowBtn
+            onClick={() =>
+              history.push('/call/waiting', {
+                filteredGender,
+              })
+            }
+          >
+            친구들과 통화하기
+          </BelowBtn>
         </MainBox>
         <CautionBox>
           <h3>주의사항 ✅ </h3>

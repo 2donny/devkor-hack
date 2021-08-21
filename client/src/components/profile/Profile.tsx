@@ -84,6 +84,7 @@ export default function Profile() {
   const location = useLocation<ProfileLocationState>();
   const history = useHistory();
   const [step, setStep] = useState(0);
+  const [isLoading, setisLoading] = useState(false);
   const [state, dispatch] = useReducer(reducer, {
     profileFormData: undefined,
     profileImg: '',
@@ -110,6 +111,11 @@ export default function Profile() {
   const handleNext = () => {
     if (step + 1 === components.length) {
       console.log('axios'); // http request, redirect
+      setisLoading(true);
+      setTimeout(() => {
+        setisLoading(false);
+        history.push('/call');
+      }, 5000);
       return;
     }
     setStep((step: number) => step + 1);
@@ -131,7 +137,11 @@ export default function Profile() {
   ];
 
   return (
-    <ProfileLayout onNext={handleNext} onPrev={prevStep}>
+    <ProfileLayout
+      isSubmiting={isLoading}
+      onNext={handleNext}
+      onPrev={prevStep}
+    >
       {components.map((component, index) => {
         if (step === index)
           return <React.Fragment key={index}>{component}</React.Fragment>;

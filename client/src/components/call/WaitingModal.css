@@ -1,0 +1,158 @@
+.waitingModalBackground {
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.waitingModalContainer {
+    position: relative;
+    width: 400px;
+    height: 700px;
+    background: #ffffff;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 1.5rem;
+}
+
+.waitingModalHeader {
+    height: 25px;
+    position: absolute;
+    left: 5.25%;
+    right: 48.58%;
+    top: 3.87%;
+    bottom: 22.8%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.waitingModalTitle {
+    /* 8시에 만나는 연고대친구 */
+
+    position: absolute;
+    left: 10.33%;
+    right: 23.27%;
+    top: 14.91%;
+    bottom: 71.6%;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 29px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+
+    color: #575f67;
+}
+
+.waitingModalContent {
+    /* 통화 연결중... */
+
+    position: absolute;
+    left: 10.33%;
+    right: 35.27%;
+    top: 20.47%;
+    bottom: 65.84%;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 30px;
+    /* identical to box height, or 83% */
+
+    display: flex;
+    align-items: center;
+
+    color: #25d482;
+}
+
+.waitingModalCall {
+    position: absolute;
+    left: 28.55%;
+    right: 36.57%;
+    top: 26.46%;
+    bottom: 48.7%;
+    color: white;
+}
+
+.waitingModalEllipse1 {
+    /* Ellipse 1 */
+
+    position: absolute;
+    left: 41.51%;
+    right: 41.51%;
+    top: 45.32%;
+    bottom: 45.32%;
+    border-radius: 50%;
+    background: #25d482;
+}
+
+.waitingModalEllipse2 {
+    /* Ellipse 234 */
+    position: absolute;
+    left: 37.73%;
+    right: 37.73%;
+    top: 43.57%;
+    bottom: 43.57%;
+    border-radius: 50%;
+    border: 1px solid #25d482;
+    box-sizing: border-box;
+}
+
+.waitingModalEllipse3 {
+    /* Ellipse 235 */
+    position: absolute;
+    left: 32.91%;
+    right: 32.91%;
+    top: 41.35%;
+    bottom: 41.35%;
+    border-radius: 50%;
+    border: 1px solid rgba(37, 212, 130, 0.53);
+    box-sizing: border-box;
+}
+
+.waitingModalEllipse4 {
+    /* Ellipse 236 */
+    position: absolute;
+    left: 28.81%;
+    right: 28.81%;
+    top: 39.46%;
+    bottom: 39.46%;
+    border-radius: 50%;
+    border: 1px solid rgba(37, 212, 130, 0.17);
+    box-sizing: border-box;
+}
+
+.waitingModalFooter {
+    /* 연고링 이용 tip 통화나 채팅시 상대방을 존중해주세요. 연고링은 데이팅 서비스가 아닙니다! 부담스러운 요구는 no no ! 코로나로 대학친구와의 교류가 없는 상황이 안타까워서 만든 서비스로 현재 아무런 이익 목적없이 운영이 되고 있어요. 많은 피드백 부탁드리겠습니다 ~ :) 소문도 많이 내주실꺼죵? ㅎㅎ */
+
+    position: absolute;
+    left: 6.93%;
+    right: 6.93%;
+    top: 78.24%;
+    bottom: 11.05%;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 17px;
+    /* or 142% */
+
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+
+    color: #929da9;
+}

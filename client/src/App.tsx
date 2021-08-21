@@ -5,6 +5,7 @@ import Login from './components/auth/Login';
 import { GlobalStyles } from './styles/styles';
 import Profile from './components/profile/Profile';
 import Call from './components/call/Call';
+import CallWaitingRoom from './components/call/CallWatingRoom';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useLogin();
@@ -21,8 +22,12 @@ function App() {
           <Profile />
         </Route>
 
-        <Route path="/call">
+        <Route path="/call" exact>
           <Call />
+        </Route>
+
+        <Route path="/call/waiting">
+          <CallWaitingRoom />
         </Route>
       </Switch>
     </Layout>

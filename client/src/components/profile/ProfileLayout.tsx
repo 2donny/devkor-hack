@@ -7,9 +7,15 @@ interface Props {
   children: React.ReactNode;
   onNext: () => void;
   onPrev: () => void;
+  isSubmiting: boolean;
 }
 
-export default function ProfileLayout({ children, onNext, onPrev }: Props) {
+export default function ProfileLayout({
+  children,
+  onNext,
+  onPrev,
+  isSubmiting,
+}: Props) {
   return (
     <Container>
       <SNav>
@@ -24,7 +30,11 @@ export default function ProfileLayout({ children, onNext, onPrev }: Props) {
           }}
         />
         <LoaderWrapper>
-          <ClipLoader color={commonStyles.accent} size={30} loading={false} />
+          <ClipLoader
+            loading={isSubmiting}
+            color={commonStyles.accent}
+            size={30}
+          />
         </LoaderWrapper>
         <ConfirmBtn onClick={onNext}>확인</ConfirmBtn>
       </SNav>
