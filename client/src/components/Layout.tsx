@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { CallOutline } from 'react-ionicons';
+import { MailUnreadOutline } from 'react-ionicons';
+import { BodyOutline } from 'react-ionicons';
 
 interface Props {
   children: React.ReactNode;
@@ -12,13 +15,22 @@ export default function Layout({ children }: Props) {
         {children}
         <FooterNavigation>
           <NavigationList>
-            <Link to="/call">7시</Link>
+            <Link to="/call">
+              <CallOutline color={'#000'} height="25px" width="25px" />
+              <p>7시</p>
+            </Link>
           </NavigationList>
           <NavigationList>
-            <Link to="/mailst">쪽지함</Link>
+            <Link to="/mailst">
+              <MailUnreadOutline color={'#000'} height="25px" width="25px" />
+              <p>쪽지함</p>
+            </Link>
           </NavigationList>
           <NavigationList>
-            <Link to="/my-page">마이페이지</Link>
+            <Link to="/my-page">
+              <BodyOutline color={'#000'} height="25px" width="25px" />
+              <p>마이페이지</p>
+            </Link>
           </NavigationList>
         </FooterNavigation>
       </Wrapper>
@@ -37,20 +49,22 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const NavigationList = styled.ul`
-  position: relative;
-  z-index: 2;
-  background-color: #fff;
-  display: -webkit-box;
-  display: -ms-flexbox;
+const NavigationList = styled.li`
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   padding: 24px;
   font-size: 10px;
+  cursor: pointer;
+  p,
+  span {
+    text-align: center;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
-const FooterNavigation = styled.li`
+const FooterNavigation = styled.ul`
   position: fixed;
   right: 0;
   bottom: 0;
