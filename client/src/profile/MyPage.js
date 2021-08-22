@@ -1,8 +1,37 @@
 import React, {useState, useEffect} from 'react';
 import './MyPage.css';
+import ReqFriend from './components/ReqFriend';
 
 function MyPage() {
-  return(
+
+    const [reqFriend, setReqFriend] = useState ([
+        {name: "잔나비"}
+    ]);
+
+    const removeReqFriend = (id) => {
+        setReqFriend(reqFriend.filter(reqFriends => {
+          return reqFriends.id !== id;
+        }));
+      };
+
+    const addFriend = (reqFriends) => {
+        setReqFriend([
+            ...reqFriend,
+            reqFriends
+        ])
+    };
+
+    const renderReqFriend = reqFriend.map(reqFriends => {
+        return(
+          <ReqFriend
+           reqFriends = {reqFriends} 
+           key={reqFriends.id}
+           removeReqFriend={removeReqFriend}
+           />
+        );
+      });
+
+    return(
       <div>
             <h1 className = "title">마이 페이지</h1>
             <div className = "text1">
@@ -12,24 +41,38 @@ function MyPage() {
             </div>
             <div className = "smalltitle1">친구신청</div>
             <div className = "reqfriend">                   
-                <img  className = "reqimg">
-
-                </img>
-                <div className = "reqname">
-                    잔나비
-                </div>
-                <button className = "reqaccept">
-                    수락
-                </button>
-                <button className = "reqreject">
-                    거절
-                </button>
+            <div className = "reqimg"></div>
+            <div className = "reqname">
+                잔나비
             </div>
+            <button className = "reqaccept">
+                수락
+            </button>
+            <button 
+                onClick={()=>removeReqFriend(reqFriend.id)}
+                className = "reqreject">
+                거절
+            </button>
+        </div>
+        <div className = "reqfriend3">                   
+            <div className = "reqimg3"></div>
+            <div className = "reqname">
+                잔나비
+            </div>
+            <button className = "reqaccept">
+                수락
+            </button>
+            <button 
+                onClick={()=>removeReqFriend(reqFriend.id)}
+                className = "reqreject">
+                거절
+            </button>
+        </div>
             <div className = "smalltitle2">나의 친구</div>
             <div className = "reqfriend2">                   
-                <img  className = "reqimg2">
+                <div  className = "reqimg2">
 
-                </img>
+                </div>
                 <div className = "reqname">
                     준호
                 </div>

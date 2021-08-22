@@ -18,7 +18,7 @@ const localStream = AgoraRTC.createStream({
 });
 
 const Call = () => {
-  const [waiting, setWaiting] = useState(true);
+  const [waiting, setWaiting] = useState(false);
   const [finish, setFinish] = useState(false);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(10);
@@ -26,7 +26,7 @@ const Call = () => {
 
   useEffect(() => {
     if (waiting === false) {
-      const countdown = setInterval(() => {
+      const countdown = setInterval(async () => {
         if (parseInt(seconds) > 0) {
           setSeconds(parseInt(seconds) - 1);
         }
@@ -34,6 +34,8 @@ const Call = () => {
           if (parseInt(minutes) === 0) {
             clearInterval(countdown);
             setFinish(true);
+            await client.leave();
+            client.unpublish(localStream);
           } else {
             setMinutes(parseInt(minutes) - 1);
             setSeconds(59);
