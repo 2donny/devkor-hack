@@ -4,7 +4,7 @@ import "./Chatting.css";
 import DetailChat from "./DetailChat";
 
 const Chatting = () => {
-  const [openDetailChat, setOpenDetailChat] = useState(true);
+  const [openDetailChat, setOpenDetailChat] = useState(false);
 
   return (
     <div className="ChattingBackground">
@@ -25,14 +25,14 @@ const Chatting = () => {
         <button className="chatUser" onClick={() => setOpenDetailChat(true)}>
           <img className="chatUserImage" src="img/user.png" />
           <div vertical-align="true" display="block">
-            <div className="chatUserName">감바스</div>
+            <div className="chatUserName">유쥬</div>
             <div className="chatUserChat">친구에게 쪽지를 보내보세요.</div>
           </div>
         </button>
         <button className="chatUser" onClick={() => setOpenDetailChat(true)}>
           <img className="chatUserImage" src="img/user.png" />
           <div vertical-align="true" display="block">
-            <div className="chatUserName">감바스</div>
+            <div className="chatUserName">유쥬</div>
             <div className="chatUserChat">친구에게 쪽지를 보내보세요.</div>
           </div>
         </button>

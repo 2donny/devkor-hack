@@ -62,6 +62,12 @@
   flex: 1;
 }
 
+.DetailChatBtn{
+    background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .DetailChatSend {
   float: right;
   margin-right: 1%;

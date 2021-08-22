@@ -3,6 +3,7 @@ import "./DetailChat.css";
 import { IoIosSend } from "react-icons/io";
 import { AiOutlineArrowLeft, AiOutlineMore } from "react-icons/ai";
 import { useState } from "react";
+import SendChat from "./SendChat";
 
 const DetailChat = ({ setOpenDetailChat }) => {
   const [fromMe, setFromMe] = useState([true, false, true]);
@@ -12,14 +13,25 @@ const DetailChat = ({ setOpenDetailChat }) => {
     "안녕~~~ 방금 통화한 연대생이야 ㅋㅋㅋ! 아까 알려준 고려대에 김밥 맛집이 어디라고 했지? 나 다음주에 안암가는데 한번 가보려구 ㅎㅎ 이름이 마른햇살이라고 했나?? 기억력이 안좋아서 ㅠ  ",
   ]);
   const [time, setTime] = useState(["1분전", "3분전", "5분전"]);
+  const [sendChat, setSendChat] = useState(false);
   return (
     <div className="DetailChatBackground">
       <div className="DetailChatContainer">
+        {sendChat ? <SendChat setSendChat={setSendChat} /> : null}
         <div className="DetailChatheader">
-          <AiOutlineArrowLeft className="DetailChatBack" size="17" />
+          <button
+            className="DetailChatBtn"
+            onClick={() => setOpenDetailChat(false)}
+          >
+            <AiOutlineArrowLeft className="DetailChatBack" size="17" />
+          </button>
           <div className="DetailChatOpp">유쥬</div>
-          <IoIosSend className="DetailChatSend" size="31" />
-          <AiOutlineMore className="DetailChatMore" size="31" />
+          <button className="DetailChatBtn" onClick={() => setSendChat(true)}>
+            <IoIosSend className="DetailChatSend" size="31" />
+          </button>
+          <button className="DetailChatBtn">
+            <AiOutlineMore className="DetailChatMore" size="31" />
+          </button>
         </div>
         {messages.map((el, idx) => {
           return (
