@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/devkor-ykring/static/css/main.65dbcd1f.chunk.css",
+    "main.js": "/devkor-ykring/static/js/main.5f5a3d5b.chunk.js",
+    "main.js.map": "/devkor-ykring/static/js/main.5f5a3d5b.chunk.js.map",
+    "runtime-main.js": "/devkor-ykring/static/js/runtime-main.f165feae.js",
+    "runtime-main.js.map": "/devkor-ykring/static/js/runtime-main.f165feae.js.map",
+    "static/js/2.8e7ca1d1.chunk.js": "/devkor-ykring/static/js/2.8e7ca1d1.chunk.js",
+    "static/js/2.8e7ca1d1.chunk.js.map": "/devkor-ykring/static/js/2.8e7ca1d1.chunk.js.map",
+    "index.html": "/devkor-ykring/index.html",
+    "static/css/main.65dbcd1f.chunk.css.map": "/devkor-ykring/static/css/main.65dbcd1f.chunk.css.map",
+    "static/js/2.8e7ca1d1.chunk.js.LICENSE.txt": "/devkor-ykring/static/js/2.8e7ca1d1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f165feae.js",
+    "static/js/2.8e7ca1d1.chunk.js",
+    "static/css/main.65dbcd1f.chunk.css",
+    "static/js/main.5f5a3d5b.chunk.js"
+  ]
+}
