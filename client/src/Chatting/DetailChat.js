@@ -5,7 +5,7 @@ import { AiOutlineArrowLeft, AiOutlineMore } from "react-icons/ai";
 import { useState } from "react";
 import SendChat from "./SendChat";
 
-const DetailChat = ({ setOpenDetailChat }) => {
+const DetailChat = ({ setOpenDetailChat, selectedUser }) => {
   const [fromMe, setFromMe] = useState([true, false, true]);
   const [messages, setMessages] = useState([
     "참치김밥 무조건 추천추천 안암 올때 연락줘 ~~ 시간 괜찮으면 놀자!",
@@ -25,7 +25,7 @@ const DetailChat = ({ setOpenDetailChat }) => {
           >
             <AiOutlineArrowLeft className="DetailChatBack" size="17" />
           </button>
-          <div className="DetailChatOpp">유쥬</div>
+          <div className="DetailChatOpp">{selectedUser}</div>
           <button className="DetailChatBtn" onClick={() => setSendChat(true)}>
             <IoIosSend className="DetailChatSend" size="31" />
           </button>
@@ -39,7 +39,7 @@ const DetailChat = ({ setOpenDetailChat }) => {
               {fromMe[idx] ? (
                 <div className="DetailChatFromMe">보낸쪽지(나)</div>
               ) : (
-                <div className="DetailChatToMe">받은쪽지(유쥬)</div>
+                <div className="DetailChatToMe">받은쪽지({selectedUser})</div>
               )}
               <div className="DetailChatTime">{time[idx]}</div>
               <div className="DetailChatMessage">{el}</div>

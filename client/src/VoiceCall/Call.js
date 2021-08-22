@@ -22,6 +22,9 @@ const Call = () => {
   const [finish, setFinish] = useState(false);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(10);
+  const [curSec, setCurSec] = useState(0);
+  const totalSec = 60 * minutes + seconds;
+  // console.log("secsec", totalSec);
   let style = { filter: `blur(${60 * minutes + seconds}px)` };
 
   useEffect(() => {
@@ -29,6 +32,8 @@ const Call = () => {
       const countdown = setInterval(async () => {
         if (parseInt(seconds) > 0) {
           setSeconds(parseInt(seconds) - 1);
+          setCurSec(parseInt(curSec) + 1);
+          // console.log("secsec1", curSec);
         }
         if (parseInt(seconds) === 0) {
           if (parseInt(minutes) === 0) {
@@ -53,7 +58,7 @@ const Call = () => {
     let handleError = function (err) {
       console.log("Error: ", err);
     };
-    console.log("kyung1", "rendering~");
+    // console.log("kyung1", "rendering~");
 
     // Remove the video stream from the container.
     function removeVideoStream(elementId) {
@@ -150,15 +155,6 @@ const Call = () => {
     });
   }, []);
 
-  //이부분이야 이든아아아아아아아아아 1
-  // function removeBlur() {
-  //   setTime(time - 1);
-  //   console.log("kyung1", time);
-  //   if (time == 0) {
-  //     clearInterval(interval);
-  //   }
-  // }
-
   const onExit = async () => {
     await client.leave();
     client.unpublish(localStream);
@@ -202,36 +198,61 @@ const Call = () => {
               관련 업종에 계신 분들과 재밌는 이야기 나눠보고 싶습니다 ㅎㅎ
             </div>
             <div className="callTitle">목표/버킷리스트</div>
-            <div className="callContent">
-              1. 세계일주하고 맛있는 세계음식들 음미해보기!!!!!
-              <br />
-              2. 하루에 신문 1개씩 읽고 , 일기 하루에 한개씩 써서 책으로
-              만들어서 자서전 팔기
-              <br />
-              3. 영어공부/학원 다니기
-              <br /> 4. 학점 A쁠 받기
-            </div>
+            {totalSec < 4 * curSec ? (
+              <div className="callContent">
+                1. 세계일주하고 맛있는 세계음식들 음미해보기!!!!!
+                <br />
+                2. 하루에 신문 1개씩 읽고 , 일기 하루에 한개씩 써서 책으로
+                만들어서 자서전 팔기
+                <br />
+                3. 영어공부/학원 다니기
+                <br /> 4. 학점 A쁠 받기
+              </div>
+            ) : (
+              <div>
+                <br />
+                <br />
+              </div>
+            )}
+
             <div className="callTitle">Detail</div>
-            <div className="callDetailTitles">
-              <div>성별:</div>
-              <div>나이:</div>
-              <div>학교</div>
-              <div>MBTI:</div>
-              <div>위치:</div>
-              <div>활동이력:</div>
-            </div>
-            <div className="callDetailContents">
-              <div>여자</div>
-              <div>20대 초반</div>
-              <div>고려대학교</div>
-              <div>ENTP 뜨거운 논쟁의 변론가</div>
-              <div>서울 성동구</div>
-              <div>멋쟁이 사자처럼</div>
-            </div>
+            {totalSec < 2 * curSec ? (
+              <>
+                <div className="callDetailTitles">
+                  <div>성별:</div>
+                  <div>나이:</div>
+                  <div>학교</div>
+                  <div>MBTI:</div>
+                  <div>위치:</div>
+                  <div>활동이력:</div>
+                </div>
+                <div className="callDetailContents">
+                  <div>여자</div>
+                  <div>20대 초반</div>
+                  <div>고려대학교</div>
+                  <div>ENTP 뜨거운 논쟁의 변론가</div>
+                  <div>서울 성동구</div>
+                  <div>멋쟁이 사자처럼</div>
+                </div>
+              </>
+            ) : (
+              <div>
+                <br />
+                <br />
+              </div>
+            )}
+
             <div className="callTitle">관심사</div>
-            <div className="callContent" id="last">
-              #맛집
-            </div>
+            {4 * totalSec < 3 * curSec ? (
+              <div className="callContent" id="last">
+                #맛집
+              </div>
+            ) : (
+              <div>
+                <br />
+                <br />
+              </div>
+            )}
           </div>
         </div>
         <div id="me"></div>
