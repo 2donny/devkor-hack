@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
+  overflow-y: scroll;
 }
 
 .callContainer {
@@ -22,17 +23,27 @@
   padding: 1.5rem;
 }
 
-.callHeader {
-  /* blur */
+.callBlur {
   width: 400px;
   height: 320px;
   position: absolute;
-  left: 1.5rem;
+  top: 0%;
+  left: 0%;
   right: 0%;
-  top: 1%;
-  bottom: 63.45%;
-  /* filter: blur(70px); */
-  object-fit: cover;
+  bottom: 0%;
+  margin: 1.5rem;
+  z-index: 2;
+}
+
+.callHeader {
+  /* blur */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  /* filter: blur(60px);
+  overflow: hidden; */
 
   background: linear-gradient(
     180deg,
@@ -47,22 +58,21 @@
 
 .callImage {
   /* blur */
-  filter:blur(1.5rem);
   width: 400px;
   height: 320px;
   position: absolute;
-  left: 1.5rem;
+  top: 0%;
+  left: 0%;
   right: 0%;
-  top: 1%;
-  bottom: 63.45%;
-  /* filter: blur(70px); */
+  bottom: 0%;
+  /* filter: blur(00px); */
   object-fit: cover;
 }
 
 .callName {
   /* 양오오니 */
   position: absolute;
-  left: 17%;
+  left: 14%;
   top: 22.8%;
 
   font-family: Spoqa Han Sans Neo;
@@ -78,7 +88,7 @@
 .callJob {
   /* UX UI 디자이너 */
   position: absolute;
-  left: 17%;
+  left: 14%;
   top: 27.8%;
 
   font-family: Spoqa Han Sans Neo;
@@ -122,14 +132,15 @@
   border-radius: 10px;
   z-index: 2;
 }
+
 .callExit {
   /* Ellipse 1 */
 
   position: absolute;
   width: 14%;
   height: 8%;
-  left: 74.2%;
-  top: 30%;
+  left: 72.2%;
+  top: 27%;
   border-radius: 50%;
   background: #fc015b;
   z-index: 3;
@@ -141,10 +152,58 @@
   /* Vector */
 
   position: absolute;
-  left: 26%;
+  left: 28%;
   top: 30%;
   transform: rotate(135deg);
   z-index: 10;
+}
+
+.callNew {
+  /* 다른 친구와 통화하기 */
+
+  position: absolute;
+  height: 4.8%;
+  left: 34%;
+  right: 0%;
+  top: 32%;
+  bottom: 0%;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: rgba(216, 219, 221, 0.4);
+  /* blur */
+
+  backdrop-filter: blur(10px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 8px;
+  border: none;
+  color: white;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.callFriend {
+  /* 친구신청 */
+
+  position: absolute;
+  height: 4.8%;
+  left: 70%;
+  right: 0%;
+  top: 32%;
+  bottom: 0%;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: #25d482;
+  /* blur */
+
+  backdrop-filter: blur(10px);
+  /* Note: backdrop-filter has minimal browser support */
+
+  border-radius: 8px;
+  border: none;
+  color: white;
+  z-index: 3;
+  cursor: pointer;
 }
 
 .callFooter {
@@ -165,19 +224,20 @@
   z-index: 3;
 }
 
-.callContent {
-  /* 재밌는 일 뭐 없나 코시국에 새로운 사람들 다양한 분야 의 사람들과 TALK 을 해보고싶어서 가입했습니다. 지금 스타트업을 다니고 있어서 관련 업종에 계신 분들과 재밌는 이야기 나눠보고 싶습니다 ㅎㅎ */
-
+.callFooterContainer {
   position: absolute;
   width: 87%;
   left: 6.7%;
-  top: 8%;
+}
 
+.callIntro {
+  /* 재밌는 일 뭐 없나 코시국에 새로운 사람들 다양한 분야 의 사람들과 TALK 을 해보고싶어서 가입했습니다. 지금 스타트업을 다니고 있어서 관련 업종에 계신 분들과 재밌는 이야기 나눠보고 싶습니다 ㅎㅎ */
+  margin-top: 8%;
   font-family: Spoqa Han Sans Neo;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
-  line-height: 19px;
+  line-height: 23px;
   /* or 136% */
 
   letter-spacing: -0.005em;
@@ -185,34 +245,26 @@
   color: #505050;
 }
 
-.callGoalTitle {
+.callTitle {
   /* 목표/버킷리스트 */
 
-  position: absolute;
-  width: 87%;
-  left: 6.7%;
-  top: 31%;
-
+  margin-top: 5%;
+  margin-bottom: 3%;
   font-family: Spoqa Han Sans Neo;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 21px;
 
   color: #25d482;
 }
 
-.callGoalContent {
-  position: absolute;
-  width: 87%;
-  left: 6.7%;
-  top: 38.5%;
-
+.callContent {
   font-family: Spoqa Han Sans Neo;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
-  line-height: 19px;
+  line-height: 23px;
   /* or 136% */
 
   letter-spacing: -0.005em;
@@ -220,112 +272,31 @@
   color: #505050;
 }
 
-.callDetailTitle {
-  /* Detail */
-
-  position: absolute;
-  left: 6.4%;
-  right: 81.33%;
-  top: 49%;
-  bottom: 36.01%;
-
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 19px;
-
-  color: #25d482;
-}
-
-.callDetailContent {
-  position: absolute;
-  width: 87%;
-  left: 6.7%;
-  top: 56.5%;
-
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 19px;
-  /* or 136% */
-
-  letter-spacing: -0.005em;
-
-  color: #505050;
-}
-
-.callResumeTitle {
-  /* 활동이력: */
-
-  position: absolute;
-  left: 6.4%;
-  right: 78.67%;
-  top: 68%;
-  bottom: 21.44%;
-
+.callDetailTitles {
+  /* 성별: */
+  float: left;
   font-family: Spoqa Han Sans Neo;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
-  line-height: 17px;
+  line-height: 25px;
   /* identical to box height */
 
   color: #505050;
 }
 
-.callResumeContent {
-  /* 멋쟁이 사자처럼 */
-
-  position: absolute;
-  left: 26.4%;
-  top: 68%;
-  bottom: 21.44%;
-
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
-
-  color: #505050;
-}
-
-.callInterestTitle {
-  /* 관심사 */
-
-  position: absolute;
-  left: 6.4%;
-  right: 81.6%;
-  top: 78.51%;
-  bottom: 17.64%;
-
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 19px;
-
-  color: #25d482;
-}
-
-.callInterestContent {
-  /* #가지볶음 #스타트업 #뽀로로 이런거? */
-
-  position: absolute;
-  left: 6.4%;
-  top: 86%;
-
+.callDetailContents {
+  line-height: 25px;
   font-family: Spoqa Han Sans Neo;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 20px;
-  /* identical to box height, or 143% */
-
+  /* identical to box height */
   color: #505050;
+  margin-left: 25%;
+}
+#last {
+  margin-bottom: 15%;
 }
 /* #me {
   position: absolute;

@@ -5,54 +5,67 @@ import { useEffect, useState } from "react";
 import { IoCall } from "react-icons/io5";
 import WaitingModal from "./WaitingModal";
 import "./Call.css";
-import styled from "styled-components";
+
+const client = AgoraRTC.createClient({
+  mode: "rtc",
+  codec: "vp8",
+});
+
+// Create a local stream
+const localStream = AgoraRTC.createStream({
+  audio: true,
+  video: false,
+});
 
 const Call = () => {
-  const [waiting, setWaiting] = useState(false);
-  const [time,setTime] = useState(0);
-  // const [globalStream, setGlobalStream] = useState("");
-  // const [globalStreamId, setGlobalStreamID] = useState("");
-  // const [globalClient, setGlobalClient] = useState("");
+  const [waiting, setWaiting] = useState(true);
+  const [finish, setFinish] = useState(false);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(10);
+  let style = { filter: `blur(${60 * minutes + seconds}px)` };
 
-
-  //이부분이야 이든아아아아아아아아아 1
-  function removeBlur() {
-    setTime(time+1)
-    styled.callImage`
-      filter: blur((1.5-0.125*time)rem);
-      width: 400px;
-      height: 320px;
-      position: absolute;
-      left: 1.5rem;
-      right: 0%;
-      top: 1%;
-      bottom: 63.45%;
-      object-fit: cover;
-    `
-  }
-
-  // Remove the video stream from the container.
-  function removeVideoStream(elementId) {
-    let remoteDiv = document.getElementById(elementId);
-    if (remoteDiv) remoteDiv.parentNode.removeChild(remoteDiv);
-  }
-
-  let client = AgoraRTC.createClient({
-    mode: "rtc",
-    codec: "vp8",
-  });
+  useEffect(() => {
+    if (waiting === false) {
+      const countdown = setInterval(() => {
+        if (parseInt(seconds) > 0) {
+          setSeconds(parseInt(seconds) - 1);
+        }
+        if (parseInt(seconds) === 0) {
+          if (parseInt(minutes) === 0) {
+            clearInterval(countdown);
+            setFinish(true);
+          } else {
+            setMinutes(parseInt(minutes) - 1);
+            setSeconds(59);
+          }
+        }
+      }, 1000);
+      return () => {
+        clearInterval(countdown);
+      };
+    }
+  }, [waiting, minutes, seconds]);
 
   useEffect(() => {
     // Handle errors.
     let handleError = function (err) {
       console.log("Error: ", err);
     };
+    console.log("kyung1", "rendering~");
+
+    // Remove the video stream from the container.
+    function removeVideoStream(elementId) {
+      // console.log("kyung", "removeVideoStream");
+      let remoteDiv = document.getElementById(elementId);
+      if (remoteDiv) remoteDiv.parentNode.removeChild(remoteDiv);
+    }
 
     // Query the container to which the remote stream belong.
     let remoteContainer = document.getElementById("remote-container");
 
     // Add video streams to the container.
     function addVideoStream(elementId) {
+      // console.log("kyung", "addVideoStream");
       // Creates a new div for every stream
       let streamDiv = document.createElement("div");
       // Assigns the elementId to the div.
@@ -66,12 +79,12 @@ const Call = () => {
     // setGlobalClient(client);
 
     client.init(
-      "bbd67ddcf9e4466282c7b03bd49e3d87",
+      "f00954bc33414730a06ed11c8aa4c139",
       function () {
-        console.log("client initialized");
+        console.log("kyung", "client initialized");
       },
       function (err) {
-        console.log("client init failed ", err);
+        console.log("kyung", "client init failed ", err);
       }
     );
 
@@ -81,11 +94,7 @@ const Call = () => {
       "123", //channel name
       null,
       (uid) => {
-        // Create a local stream
-        let localStream = AgoraRTC.createStream({
-          audio: true,
-          video: true,
-        });
+        // console.log("kyung", "join");
         // Initialize the local stream
         localStream.init(() => {
           // Play the local stream
@@ -99,13 +108,15 @@ const Call = () => {
 
     // Subscribe to the remote stream when it is published
     client.on("stream-added", function (evt) {
+      console.log("kyung", "stream-added");
       client.subscribe(evt.stream, handleError);
-
       // 상대방이 대화에 참여했으므로 대기화면 종료
       setWaiting(false);
     });
+
     // Play the remote stream when it is subsribed
     client.on("stream-subscribed", function (evt) {
+      // console.log("kyung", "stream-subscribed");
       let stream = evt.stream;
       // setGlobalStream(stream);
       let streamId = String(stream.getId());
@@ -116,67 +127,112 @@ const Call = () => {
 
     // Remove the corresponding view when a remote user unpublishes.
     client.on("stream-removed", function (evt) {
+      // console.log("kyung", "stream-removed");
       let stream = evt.stream;
       let streamId = String(stream.getId());
       stream.close();
       removeVideoStream(streamId);
+      setWaiting(true);
     });
     // Remove the corresponding view when a remote user leaves the channel.
     client.on("peer-leave", function (evt) {
-      let stream = evt.stream;
-      let streamId = String(stream.getId());
-      stream.close();
-      removeVideoStream(streamId);
+      // console.log("kyung", "peer-leave");
+      client.unpublish(localStream);
+      setWaiting(true);
     });
-  }
-  , []);
 
-  //Swift
-  // const leaveChannel = () => {
-  //   agoraKit.leaveChannel(nil);
-  // };
+    client.on("connection-state-change", function (evt) {
+      // console.log("kyung", "connection-state-change");
+      // console.log("kyung", evt.prevState);
+      // console.log("kyung", evt.curState);
+    });
+  }, []);
 
-  //이부분이야 이든아아아아아앙아아 2
-  var interval = setInterval(removeBlur, 5000);
+  //이부분이야 이든아아아아아아아아아 1
+  // function removeBlur() {
+  //   setTime(time - 1);
+  //   console.log("kyung1", time);
+  //   if (time == 0) {
+  //     clearInterval(interval);
+  //   }
+  // }
 
-  const onExit = () => {
-    client.leave();
-    clearInterval(interval);
+  const onExit = async () => {
+    await client.leave();
+    client.unpublish(localStream);
+    setWaiting(true);
   };
 
   return (
     <div className="callBackground">
       {waiting && <WaitingModal />}
       <div className="callContainer">
-        <div className="callHeader" />
-        <img className="callImage" src="img/download.jpg" />
+        <div className="callBlur">
+          <div className="callHeader" />
+          <img className="callImage" src="img/download.jpg" style={style} />
+        </div>
         {/* <button className="callBack">
             <AiOutlineArrowLeft size="15" color="white" />
           </button> */}
         <div className="callName">양오오니</div>
-        <button className="callExit" onClick={onExit}>
-          <IoCall className="callExitIcon" color="white" size="22" />
-        </button>
+
         <div className="callJob">UX UI 디자이너</div>
-        <div className="callTime">7:00</div>
-        <div className="callFooter">
-          <div className="callContent">
-            재밌는 일 뭐 없나 코시국에 새로운 사람들 다양한 분야 의 사람들과
-            TALK 을 해보고싶어서 가입했습니다. 지금 스타트업을 다니고 있어서
-            관련 업종에 계신 분들과 재밌는 이야기 나눠보고 싶습니다 ㅎㅎ
+        {finish ? (
+          <button className="callNew">다른 친구와 통화하기</button>
+        ) : (
+          <div className="callTime">
+            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
           </div>
-          <div className="callGoalTitle">목표/버킷리스트</div>
-          <div className="callGoalContent">목표는 집가기</div>
-          <div className="callDetailTitle">Detail</div>
-          <div className="callDetailContent">내 MBTI 뭐겡</div>
-          <div className="callResumeTitle">활동이력:</div>
-          <div className="callResumeContent">멋쟁이 사자처럼</div>
-          <div className="callInterestTitle">관심사</div>
-          <div className="callInterestContent">#맛집</div>
+        )}
+        {finish ? (
+          <button className="callFriend">친구신청</button>
+        ) : (
+          <button className="callExit" onClick={onExit}>
+            <IoCall className="callExitIcon" color="white" size="26" />
+          </button>
+        )}
+
+        <div className="callFooter">
+          <div className="callFooterContainer">
+            <div className="callIntro">
+              재밌는 일 뭐 없나 코시국에 새로운 사람들 다양한 분야 의 사람들과
+              TALK 을 해보고싶어서 가입했습니다. 지금 스타트업을 다니고 있어서
+              관련 업종에 계신 분들과 재밌는 이야기 나눠보고 싶습니다 ㅎㅎ
+            </div>
+            <div className="callTitle">목표/버킷리스트</div>
+            <div className="callContent">
+              1. 세계일주하고 맛있는 세계음식들 음미해보기!!!!!
+              <br />
+              2. 하루에 신문 1개씩 읽고 , 일기 하루에 한개씩 써서 책으로
+              만들어서 자서전 팔기
+              <br />
+              3. 영어공부/학원 다니기
+              <br /> 4. 학점 A쁠 받기
+            </div>
+            <div className="callTitle">Detail</div>
+            <div className="callDetailTitles">
+              <div>성별:</div>
+              <div>나이:</div>
+              <div>학교</div>
+              <div>MBTI:</div>
+              <div>위치:</div>
+              <div>활동이력:</div>
+            </div>
+            <div className="callDetailContents">
+              <div>여자</div>
+              <div>20대 초반</div>
+              <div>고려대학교</div>
+              <div>ENTP 뜨거운 논쟁의 변론가</div>
+              <div>서울 성동구</div>
+              <div>멋쟁이 사자처럼</div>
+            </div>
+            <div className="callTitle">관심사</div>
+            <div className="callContent" id="last">
+              #맛집
+            </div>
+          </div>
         </div>
-        <h4>Local video</h4>
         <div id="me"></div>
-        <h4>Remote video</h4>
         <div id="remote-container"></div>
       </div>
     </div>
