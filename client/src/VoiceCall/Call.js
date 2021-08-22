@@ -6,32 +6,68 @@ import { IoCall } from "react-icons/io5";
 import WaitingModal from "./WaitingModal";
 import "./Call.css";
 
+const client = AgoraRTC.createClient({
+  mode: "rtc",
+  codec: "vp8",
+});
+
+// Create a local stream
+const localStream = AgoraRTC.createStream({
+  audio: true,
+  video: false,
+});
+
 const Call = () => {
   const [waiting, setWaiting] = useState(false);
-  const [finish, setFinish] = useState(true);
+  const [finish, setFinish] = useState(false);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(10);
+  let style = { filter: `blur(${60 * minutes + seconds}px)` };
 
-  // Remove the video stream from the container.
-  function removeVideoStream(elementId) {
-    let remoteDiv = document.getElementById(elementId);
-    if (remoteDiv) remoteDiv.parentNode.removeChild(remoteDiv);
-  }
-
-  let client = AgoraRTC.createClient({
-    mode: "rtc",
-    codec: "vp8",
-  });
+  useEffect(() => {
+    if (waiting === false) {
+      const countdown = setInterval(async () => {
+        if (parseInt(seconds) > 0) {
+          setSeconds(parseInt(seconds) - 1);
+        }
+        if (parseInt(seconds) === 0) {
+          if (parseInt(minutes) === 0) {
+            clearInterval(countdown);
+            setFinish(true);
+            await client.leave();
+            client.unpublish(localStream);
+          } else {
+            setMinutes(parseInt(minutes) - 1);
+            setSeconds(59);
+          }
+        }
+      }, 1000);
+      return () => {
+        clearInterval(countdown);
+      };
+    }
+  }, [waiting, minutes, seconds]);
 
   useEffect(() => {
     // Handle errors.
     let handleError = function (err) {
       console.log("Error: ", err);
     };
+    console.log("kyung1", "rendering~");
+
+    // Remove the video stream from the container.
+    function removeVideoStream(elementId) {
+      // console.log("kyung", "removeVideoStream");
+      let remoteDiv = document.getElementById(elementId);
+      if (remoteDiv) remoteDiv.parentNode.removeChild(remoteDiv);
+    }
 
     // Query the container to which the remote stream belong.
     let remoteContainer = document.getElementById("remote-container");
 
     // Add video streams to the container.
     function addVideoStream(elementId) {
+      // console.log("kyung", "addVideoStream");
       // Creates a new div for every stream
       let streamDiv = document.createElement("div");
       // Assigns the elementId to the div.
@@ -45,12 +81,12 @@ const Call = () => {
     // setGlobalClient(client);
 
     client.init(
-      "bbd67ddcf9e4466282c7b03bd49e3d87",
+      "f00954bc33414730a06ed11c8aa4c139",
       function () {
-        console.log("client initialized");
+        console.log("kyung", "client initialized");
       },
       function (err) {
-        console.log("client init failed ", err);
+        console.log("kyung", "client init failed ", err);
       }
     );
 
@@ -60,11 +96,7 @@ const Call = () => {
       "123", //channel name
       null,
       (uid) => {
-        // Create a local stream
-        let localStream = AgoraRTC.createStream({
-          audio: true,
-          video: false,
-        });
+        // console.log("kyung", "join");
         // Initialize the local stream
         localStream.init(() => {
           // Play the local stream
@@ -78,13 +110,15 @@ const Call = () => {
 
     // Subscribe to the remote stream when it is published
     client.on("stream-added", function (evt) {
+      console.log("kyung", "stream-added");
       client.subscribe(evt.stream, handleError);
-
       // 상대방이 대화에 참여했으므로 대기화면 종료
       setWaiting(false);
     });
+
     // Play the remote stream when it is subsribed
     client.on("stream-subscribed", function (evt) {
+      // console.log("kyung", "stream-subscribed");
       let stream = evt.stream;
       // setGlobalStream(stream);
       let streamId = String(stream.getId());
@@ -95,6 +129,7 @@ const Call = () => {
 
     // Remove the corresponding view when a remote user unpublishes.
     client.on("stream-removed", function (evt) {
+      // console.log("kyung", "stream-removed");
       let stream = evt.stream;
       let streamId = String(stream.getId());
       stream.close();
@@ -103,16 +138,30 @@ const Call = () => {
     });
     // Remove the corresponding view when a remote user leaves the channel.
     client.on("peer-leave", function (evt) {
-      let stream = evt.stream;
-      let streamId = String(stream.getId());
-      stream.close();
-      removeVideoStream(streamId);
+      // console.log("kyung", "peer-leave");
+      client.unpublish(localStream);
       setWaiting(true);
+    });
+
+    client.on("connection-state-change", function (evt) {
+      // console.log("kyung", "connection-state-change");
+      // console.log("kyung", evt.prevState);
+      // console.log("kyung", evt.curState);
     });
   }, []);
 
+  //이부분이야 이든아아아아아아아아아 1
+  // function removeBlur() {
+  //   setTime(time - 1);
+  //   console.log("kyung1", time);
+  //   if (time == 0) {
+  //     clearInterval(interval);
+  //   }
+  // }
+
   const onExit = async () => {
     await client.leave();
+    client.unpublish(localStream);
     setWaiting(true);
   };
 
@@ -120,8 +169,10 @@ const Call = () => {
     <div className="callBackground">
       {waiting && <WaitingModal />}
       <div className="callContainer">
-        <div className="callHeader" />
-        <img className="callImage" src="img/download.jpg" />
+        <div className="callBlur">
+          <div className="callHeader" />
+          <img className="callImage" src="img/download.jpg" style={style} />
+        </div>
         {/* <button className="callBack">
             <AiOutlineArrowLeft size="15" color="white" />
           </button> */}
@@ -131,7 +182,9 @@ const Call = () => {
         {finish ? (
           <button className="callNew">다른 친구와 통화하기</button>
         ) : (
-          <div className="callTime">7:00</div>
+          <div className="callTime">
+            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+          </div>
         )}
         {finish ? (
           <button className="callFriend">친구신청</button>

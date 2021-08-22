@@ -23,17 +23,27 @@
   padding: 1.5rem;
 }
 
-.callHeader {
-  /* blur */
+.callBlur {
   width: 400px;
   height: 320px;
   position: absolute;
-  left: 1.5rem;
+  top: 0%;
+  left: 0%;
   right: 0%;
-  top: 1%;
-  bottom: 63.45%;
-  /* filter: blur(70px); */
-  object-fit: cover;
+  bottom: 0%;
+  margin: 1.5rem;
+  z-index: 2;
+}
+
+.callHeader {
+  /* blur */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  /* filter: blur(60px);
+  overflow: hidden; */
 
   background: linear-gradient(
     180deg,
@@ -51,11 +61,11 @@
   width: 400px;
   height: 320px;
   position: absolute;
-  left: 1.5rem;
+  top: 0%;
+  left: 0%;
   right: 0%;
-  top: 1%;
-  bottom: 63.45%;
-  /* filter: blur(70px); */
+  bottom: 0%;
+  /* filter: blur(00px); */
   object-fit: cover;
 }
 

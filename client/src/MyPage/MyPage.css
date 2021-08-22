@@ -1,0 +1,198 @@
+.title {
+  position: absolute;
+  left: 3.97%;
+  right: 59.05%;
+  top: 10.64%;
+  bottom: 13.64%;
+
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 32px;
+  /* identical to box height, or 114% */
+
+  display: flex;
+  align-items: center;
+}
+
+.text1 {
+  position: absolute;
+  left: 3.97%;
+  right: 4.03%;
+  top: 21%;
+  bottom: 2.08%;
+  width: 345px;
+  height: 69px;
+
+  background: #d5fcea;
+  border-radius: 8px;
+
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+
+  font-size: 12px;
+  line-height: 17px;
+  /* or 142% */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  vertical-align: middle;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.textintext {
+  width: 314px;
+  height: 34px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #25d482;
+}
+
+.smalltitle1 {
+  position: absolute;
+  left: 5.36%;
+  right: 78.91%;
+  top: 34.64%;
+  bottom: 60.9%;
+
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+  width: 70px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #575f67;
+}
+
+.text2 {
+  position: absolute;
+  width: 219px;
+  height: 60px;
+  left: 78px;
+  top: 329.48px;
+
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+
+  color: #929da9;
+}
+
+.smalltitle2 {
+  position: absolute;
+  left: 5.36%;
+  right: 78.91%;
+  top: 72.64%;
+  bottom: 60.9%;
+
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+  width: 70px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #575f67;
+}
+
+.reqfriend {
+  display: flex;
+  width: 400px;
+  height: 76px;
+  align-items: center;
+  margin-top: 300px;
+}
+
+.reqimg {
+  width: 56px;
+  height: 56px;
+  margin-left: 16px;
+  background: url(./img/Oval.png);
+  outline: none;
+}
+
+.reqname {
+  height: 32px;
+  position: absolute;
+
+  margin-left: 85.5px;
+
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 32px;
+  /* identical to box height, or 229% */
+
+  letter-spacing: -0.005em;
+
+  color: #262626;
+}
+
+.reqaccept {
+  width: 56px;
+  height: 29px;
+  margin-left: 125.5px;
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  /* identical to box height, or 154% */
+
+  align-items: center;
+  text-align: center;
+  background: white;
+
+  color: #25d482;
+  border: 1px solid #25d482;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.reqreject {
+  width: 56px;
+  height: 29px;
+  margin-left: 32px;
+
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  /* identical to box height, or 154% */
+
+  align-items: center;
+  text-align: center;
+  background: white;
+
+  color: #25d482;
+  border: 1px solid #25d482;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
