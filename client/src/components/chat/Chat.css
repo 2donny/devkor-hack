@@ -1,0 +1,145 @@
+.ChattingBackground {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    overflow-y: scroll;
+}
+
+.ChattingContainer {
+    position: absolute;
+    max-width: 400px;
+    width: 50%;
+    min-height: 100vh;
+
+}
+
+.chat {
+    /* 쪽지 */
+
+    position: absolute;
+    left: 5%;
+    top: 7%;
+    bottom: 13.64%;
+    padding-right: 10px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 32px;
+    /* identical to box height, or 114% */
+
+    display: flex;
+
+    color: #222222;
+}
+
+.chatImage {
+    width: 40px;
+    position: absolute;
+    left: 20%;
+    top: 7.5%;
+    bottom: 13.64%;
+    padding-right: 10px;
+}
+
+.chatExplain {
+    /* Chatbox */
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 26px;
+    margin-top: 32%;
+    /* position: absolute; */
+    /* left: 4.06%;
+    right: 4.93%;
+    top: 15.09%;
+    bottom: 24.64%; */
+    height: 34px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    /* font-weight: bold; */
+    font-size: 12px;
+    line-height: 19px;
+    /* or 142% */
+
+    padding: 17px;
+
+    /* letter-spacing: -0.05em; */
+    text-transform: uppercase;
+
+    color: #25d482;
+
+    background: #d5fcea;
+    border-radius: 8px;
+}
+
+.chatZero {
+    /* 쪽지가 없어요 :( 7분 통화 후 마음에 드는 친구에게 친구신청을 해보세요! */
+
+    position: absolute;
+    width: 247px;
+    height: 69px;
+    left: 64px;
+    top: 371.5px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+
+    color: #929da9;
+}
+
+.chatUser {
+    display: flex;
+    width: 400px;
+    height: 71px;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.chatUserImage {
+    width: 56px;
+    height: 56px;
+    margin-left: 16px;
+    outline: none;
+}
+
+.chatUserName {
+    margin-left: 8px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 246% */
+
+    letter-spacing: -0.005em;
+
+    color: #262626;
+    text-align: left;
+}
+
+.chatUserChat {
+    /* Have a nice day, bro */
+    margin-left: 8px;
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    /* line-height: 32px; */
+    /* identical to box height, or 246% */
+
+    letter-spacing: -0.005em;
+
+    color: #929da9;
+}

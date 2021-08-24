@@ -1,0 +1,96 @@
+.SendChatBackground {
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    overflow-y: scroll;
+}
+
+.SendChatContainer {
+    min-height: 100vh;
+    border: 1px solid lightgray;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.SendChatheader {
+    height: 88px;
+    align-items: center;
+    display: flex;
+    /* Base/White */
+
+    background: #ffffff;
+    box-shadow: 0px 4px 4px -4px rgba(51, 63, 85, 0.68);
+    border-radius: 0px;
+    margin-bottom: 4px;
+}
+
+.SendChatBack {
+    padding-left: 20px;
+    height: 25px;
+    float: left;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.SendChatTitle {
+    float: left;
+    margin-left: 15px;
+    margin: 2px 15px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 28px;
+    /* identical to box height, or 200% */
+
+    letter-spacing: -0.005em;
+
+    color: #12121d;
+    flex: 1;
+}
+
+.SendChatBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.SendChatInput {
+    border: none;
+    width: 400px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.SendChatInput:focus {
+    outline: none !important;
+}
+
+.SendChatSend {
+    /* Auto Layout */
+    width: 350px;
+    height: 40px;
+    background: #25d482;
+    position: fixed;
+    margin: 5%;
+    bottom: 5%;
+    border-radius: 8px;
+    border: none;
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    box-shadow: 7px 7px 12px rgba(37, 212, 130, 0.4);
+    color: #ffffff;
+    display: block;
+    cursor: pointer;
+}
