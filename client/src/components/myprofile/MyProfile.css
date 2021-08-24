@@ -1,0 +1,241 @@
+.container {
+    min-height: 100vh;
+}
+
+.titles {
+    padding: 50px;
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 32px;
+    /* identical to box height, or 114% */
+
+    display: flex;
+    align-items: center;
+
+}
+
+.text1 {
+    margin: 0 auto;
+    width: 365px;
+    height: 69px;
+
+    background: #D5FCEA;
+    border-radius: 8px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+
+    font-size: 12px;
+    line-height: 17px;
+    /* or 142% */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.textintext {
+    width: 314px;
+    height: 34px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #25D482;
+}
+
+.smalltitle1 {
+    margin: 2rem 1.5rem;
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height, or 125% */
+    width: 70px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #575F67;
+}
+
+.text2 {
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+
+    color: #929DA9;
+}
+
+.smalltitle2 {
+    margin: 2rem 1.5rem;
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height, or 125% */
+    width: 70px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #575F67;
+}
+
+.reqfriend {
+    display: flex;
+    width: 400px;
+    height: 76px;
+    align-items: center;
+}
+
+.reqfriend3 {
+    display: flex;
+    width: 400px;
+    height: 76px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.reqimg3 {
+    width: 56px;
+    height: 56px;
+    margin-left: 16px;
+    background: url('https://raw.githubusercontent.com/2donny/devkor-ykring/jj/client/src/profile/img/Oval3.png');
+    outline: none;
+    border: none;
+}
+
+.reqimg {
+    width: 56px;
+    height: 56px;
+    margin-left: 16px;
+    background: url('https://raw.githubusercontent.com/2donny/devkor-ykring/jj/client/src/profile/img/Oval2.png');
+    outline: none;
+    border: none;
+}
+
+.reqname {
+
+    height: 32px;
+    position: absolute;
+
+    margin-left: 85.5px;
+
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 32px;
+    /* identical to box height, or 229% */
+
+    letter-spacing: -0.005em;
+
+    color: #262626;
+
+}
+
+.reqaccept {
+    width: 56px;
+    height: 29px;
+    margin-left: 145.5px;
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    /* identical to box height, or 154% */
+    cursor: pointer;
+
+
+    align-items: center;
+    text-align: center;
+    background: white;
+
+
+    color: #25D482;
+    border: 1px solid #25D482;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.reqreject {
+    width: 56px;
+    height: 29px;
+    margin-left: 32px;
+    cursor: pointer;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    /* identical to box height, or 154% */
+
+
+    align-items: center;
+    text-align: center;
+    background: white;
+
+
+    color: #25D482;
+    border: 1px solid #25D482;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.reqfriend2 {
+    display: flex;
+    width: 400px;
+    height: 76px;
+    align-items: center;
+}
+
+.reqimg2 {
+    width: 56px;
+    height: 56px;
+    margin-left: 16px;
+    background: url('https://raw.githubusercontent.com/2donny/devkor-ykring/jj/client/src/profile/img/Oval.png');
+    outline: none;
+    border: none;
+}
+
+.message {
+    margin-left: 185px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    position: static;
+
+    height: 27px;
+
+    background: #25D482;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+}
