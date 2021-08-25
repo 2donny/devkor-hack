@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { IoCall } from 'react-icons/io5';
 import WaitingModal from './WaitingModal';
 import './CallWaitingRoom.css';
+import { useHistory } from 'react-router-dom';
 
 const client = AgoraRTC.createClient({
   mode: 'rtc',
@@ -19,32 +20,59 @@ const localStream = AgoraRTC.createStream({
 const CallWaitingRoom = () => {
   const [waiting, setWaiting] = useState(true);
   const [finish, setFinish] = useState(false);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(10);
+  const [curSec, setCurSec] = useState(0);
+  const totalSec = 60 * minutes + seconds;
+  // console.log("secsec", totalSec);
+  let style = { filter: `blur(${60 * minutes + seconds}px)` };
 
-  // Remove the video stream from the container.
-  function removeVideoStream(elementId: string) {
-    let remoteDiv = document.getElementById(elementId);
-    if (remoteDiv) remoteDiv?.parentNode?.removeChild(remoteDiv);
-  }
+  const history = useHistory();
+
+  useEffect(() => {
+    if (waiting === false) {
+      const countdown = setInterval(async () => {
+        if (seconds > 0) {
+          setSeconds(seconds - 1);
+          setCurSec(curSec + 1);
+          // console.log("secsec1", curSec);
+        }
+        if (seconds === 0) {
+          if (minutes === 0) {
+            clearInterval(countdown);
+            setFinish(true);
+            await client.leave();
+            client.unpublish(localStream);
+          } else {
+            setMinutes(minutes - 1);
+            setSeconds(59);
+          }
+        }
+      }, 1000);
+      return () => {
+        clearInterval(countdown);
+      };
+    }
+  }, [waiting, minutes, seconds]);
 
   useEffect(() => {
     // Handle errors.
-    let handleError = function (
-      err:
-        | {
-            type: 'warning' | 'error';
-            msg: string;
-            info?: string | undefined;
-          }
-        | string,
-    ) {
+    let handleError = function (err: any) {
       console.log('Error: ', err);
     };
+
+    // Remove the video stream from the container.
+    function removeVideoStream(elementId: any) {
+      let remoteDiv = document.getElementById(elementId);
+      if (remoteDiv) remoteDiv?.parentNode?.removeChild(remoteDiv);
+    }
 
     // Query the container to which the remote stream belong.
     let remoteContainer = document.getElementById('remote-container');
 
     // Add video streams to the container.
-    function addVideoStream(elementId: string) {
+    function addVideoStream(elementId: any) {
+      // console.log("kyung", "addVideoStream");
       // Creates a new div for every stream
       let streamDiv = document.createElement('div');
       // Assigns the elementId to the div.
@@ -52,18 +80,18 @@ const CallWaitingRoom = () => {
       // Takes care of the lateral inversion
       streamDiv.style.transform = 'rotateY(180deg)';
       // Adds the div to the container.
-      remoteContainer?.appendChild(streamDiv);
+      remoteContainer?.appendChild?.(streamDiv);
     }
 
     // setGlobalClient(client);
 
     client.init(
-      'bbd67ddcf9e4466282c7b03bd49e3d87',
+      'f00954bc33414730a06ed11c8aa4c139',
       function () {
-        console.log('client initialized');
+        console.log('kyung', 'client initialized');
       },
       function (err) {
-        console.log('client init failed ', err);
+        console.log('kyung', 'client init failed ', err);
       },
     );
 
@@ -73,7 +101,9 @@ const CallWaitingRoom = () => {
       '123', //channel name
       null,
       undefined,
-      (uid: number) => {
+      (uid: any) => {
+        // console.log("kyung", "join");
+        // Initialize the local stream
         localStream.init(() => {
           // Play the local stream
           localStream.play('me');
@@ -86,13 +116,15 @@ const CallWaitingRoom = () => {
 
     // Subscribe to the remote stream when it is published
     client.on('stream-added', function (evt) {
-      client.subscribe(evt.stream, undefined);
-
+      console.log('kyung', 'stream-added');
+      client.subscribe(evt.stream);
       // 상대방이 대화에 참여했으므로 대기화면 종료
       setWaiting(false);
     });
+
     // Play the remote stream when it is subsribed
     client.on('stream-subscribed', function (evt) {
+      // console.log("kyung", "stream-subscribed");
       let stream = evt.stream;
       // setGlobalStream(stream);
       let streamId = String(stream.getId());
@@ -103,13 +135,19 @@ const CallWaitingRoom = () => {
 
     // Remove the corresponding view when a remote user unpublishes.
     client.on('stream-removed', function (evt) {
+      // console.log("kyung", "stream-removed");
       let stream = evt.stream;
       let streamId = String(stream.getId());
       stream.close();
       removeVideoStream(streamId);
       setWaiting(true);
     });
-    
+    // Remove the corresponding view when a remote user leaves the channel.
+    client.on('peer-leave', function (evt) {
+      // console.log("kyung", "peer-leave");
+      client.unpublish(localStream);
+      setWaiting(true);
+    });
   }, []);
 
   const onExit = async () => {
@@ -122,21 +160,28 @@ const CallWaitingRoom = () => {
     <div className="callBackground">
       {waiting && <WaitingModal />}
       <div className="callContainer">
-        <div className="callHeader" />
-        <img
-          className="callImage"
-          src="https://raw.githubusercontent.com/2donny/devkor-ykring/kyung/client/public/img/download.jpg"
-        />
+        <div className="callBlur">
+          <div className="callHeader" />
+          <img
+            className="callImage"
+            src="https://raw.githubusercontent.com/2donny/devkor-ykring/kyung/client/public/img/download.jpg"
+            style={style}
+          />
+        </div>
         {/* <button className="callBack">
-            <AiOutlineArrowLeft size="15" color="white" />
-          </button> */}
+          <AiOutlineArrowLeft size="15" color="white" />
+        </button> */}
         <div className="callName">양오오니</div>
 
         <div className="callJob">UX UI 디자이너</div>
         {finish ? (
-          <button className="callNew">다른 친구와 통화하기</button>
+          <button onClick={() => history.push('/call')} className="callNew">
+            다른 친구와 통화하기
+          </button>
         ) : (
-          <div className="callTime">7:00</div>
+          <div className="callTime">
+            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+          </div>
         )}
         {finish ? (
           <button className="callFriend">친구신청</button>
@@ -154,36 +199,61 @@ const CallWaitingRoom = () => {
               관련 업종에 계신 분들과 재밌는 이야기 나눠보고 싶습니다 ㅎㅎ
             </div>
             <div className="callTitle">목표/버킷리스트</div>
-            <div className="callContent">
-              1. 세계일주하고 맛있는 세계음식들 음미해보기!!!!!
-              <br />
-              2. 하루에 신문 1개씩 읽고 , 일기 하루에 한개씩 써서 책으로
-              만들어서 자서전 팔기
-              <br />
-              3. 영어공부/학원 다니기
-              <br /> 4. 학점 A쁠 받기
-            </div>
+            {totalSec < 4 * curSec ? (
+              <div className="callContent">
+                1. 세계일주하고 맛있는 세계음식들 음미해보기!!!!!
+                <br />
+                2. 하루에 신문 1개씩 읽고 , 일기 하루에 한개씩 써서 책으로
+                만들어서 자서전 팔기
+                <br />
+                3. 영어공부/학원 다니기
+                <br /> 4. 학점 A쁠 받기
+              </div>
+            ) : (
+              <div>
+                <br />
+                <br />
+              </div>
+            )}
+
             <div className="callTitle">Detail</div>
-            <div className="callDetailTitles">
-              <div>성별:</div>
-              <div>나이:</div>
-              <div>학교</div>
-              <div>MBTI:</div>
-              <div>위치:</div>
-              <div>활동이력:</div>
-            </div>
-            <div className="callDetailContents">
-              <div>여자</div>
-              <div>20대 초반</div>
-              <div>고려대학교</div>
-              <div>ENTP 뜨거운 논쟁의 변론가</div>
-              <div>서울 성동구</div>
-              <div>멋쟁이 사자처럼</div>
-            </div>
+            {totalSec < 2 * curSec ? (
+              <>
+                <div className="callDetailTitles">
+                  <div>성별:</div>
+                  <div>나이:</div>
+                  <div>학교</div>
+                  <div>MBTI:</div>
+                  <div>위치:</div>
+                  <div>활동이력:</div>
+                </div>
+                <div className="callDetailContents">
+                  <div>여자</div>
+                  <div>20대 초반</div>
+                  <div>고려대학교</div>
+                  <div>ENTP 뜨거운 논쟁의 변론가</div>
+                  <div>서울 성동구</div>
+                  <div>멋쟁이 사자처럼</div>
+                </div>
+              </>
+            ) : (
+              <div>
+                <br />
+                <br />
+              </div>
+            )}
+
             <div className="callTitle">관심사</div>
-            <div className="callContent" id="last">
-              #맛집
-            </div>
+            {4 * totalSec < 3 * curSec ? (
+              <div className="callContent" id="last">
+                #맛집
+              </div>
+            ) : (
+              <div>
+                <br />
+                <br />
+              </div>
+            )}
           </div>
         </div>
         <div id="me"></div>

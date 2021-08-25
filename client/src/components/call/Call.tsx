@@ -19,7 +19,7 @@ const customStyles = {
     borderRadius: '15px',
     minHeight: '30vh',
     width: '70%',
-    maxWidth: '375px',
+    maxWidth: '335px',
     paddingBottom: '30px',
   },
 };
@@ -57,7 +57,7 @@ export default function Call() {
         <STitleBox>
           <h1>8시에 만나는 고연대친구</h1>
           <Row>
-            <h2>연고링</h2>
+            <h2>통화링</h2>
             <SImg src="/man1.png" />
             <SImg src="/woman1.png" />
           </Row>
